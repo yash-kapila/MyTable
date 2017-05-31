@@ -1,0 +1,31 @@
+<div class="my-table-container">
+    <table class="my-table">
+        <thead class="my-table-heading">
+            <tr class="my-table-heading-row">
+                <th ng-repeat="cols in $ctrl.columnsConfig" class="my-table-heading-cols my-table-heading-cols-{{$index+1}}">
+                    <div my-table-header-cell cols="cols" ng-click="$ctrl.sortColumn(cols.name, cols.enableSorting)" sort-order="$ctrl.currentSortOrder">
+                        <span ng-switch on="$ctrl.currentSortOrder[cols.name]" class="sort-icon-container">
+                            <span ng-switch-when="ASC">
+                                <i class="glyphicon glyphicon-chevron-up sort-icon"> </i>
+                            </span>
+                            <span ng-switch-when="DSC">
+                                <i class="glyphicon glyphicon-chevron-down sort-icon"> </i>
+                            </span>
+                            <span ng-switch-default> </span>
+                        </span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody ng-show="$ctrl.tableData.length" class="my-table-body">
+            <tr 
+                ng-repeat="data in $ctrl.tableData"
+                class="my-table-body-row my-table-body-row-{{$index+1}}" 
+                ng-class-even="{'my-table-body-row-even': $index%2!==0}">
+                <td ng-repeat="cols in $ctrl.columnsConfig" class="my-table-body-cols my-table-body-cols-{{$index+1}}">
+                    <div my-table-body-cell cols="cols" data="data" app-scope="$ctrl.appScope"></div>
+                </td>
+            </tr>    
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,12 @@
+.custom-table-container > .custom-table-heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.red {
+    color: red;
+}
+
+.yellow {
+    background-color: yellow;
+}
