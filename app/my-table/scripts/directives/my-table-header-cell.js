@@ -7,6 +7,7 @@
             restrict: 'A',
             scope: {
                 cols: '=',
+                appScope: '=',
                 sortOrder: '='
             },
             compile: function (tElem, tAttrs) {

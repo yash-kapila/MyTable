@@ -18,12 +18,11 @@
             </tr>
         </thead>
         <tbody ng-show="$ctrl.tableData.length" class="my-table-body">
-            <tr 
-                ng-repeat="data in $ctrl.tableData"
+            <tr ng-repeat="row in $ctrl.tableData"
                 class="my-table-body-row my-table-body-row-{{$index+1}}" 
                 ng-class-even="{'my-table-body-row-even': $index%2!==0}">
                 <td ng-repeat="cols in $ctrl.columnsConfig" class="my-table-body-cols my-table-body-cols-{{$index+1}}">
-                    <div my-table-body-cell cols="cols" data="data" app-scope="$ctrl.appScope"></div>
+                    <div my-table-body-cell cols="cols" row="row" app-scope="$ctrl.appScope"></div>
                 </td>
             </tr>    
         </tbody>

@@ -8,7 +8,7 @@
 
     function Service($http, $q) {
         this.gridConfiguration = function () {
-            var template = '<button type="button" class="btn btn-primary" ng-click="appScope.testClick()">' +
+            var template = '<button type="button" class="btn btn-primary" ng-click="appScope.testClick(row)">' +
                                 '<i class="glyphicon glyphicon-minus"></i>' +
                             '</button>';
 

@@ -7,7 +7,7 @@
             restrict: 'A',
             scope: {
                 cols: '=',
-                data: '=',
+                row: '=',
                 appScope: '='
             },
             compile: function (tElem, tAttrs) {
@@ -17,7 +17,7 @@
                             var cellElement = $compile(scope.cols.cellTemplate)(scope);
                             iElem.append(cellElement[0]);
                         } else {
-                            var html = '<span> {{data[cols.name]}} </span>';
+                            var html = '<span> {{row[cols.name]}} </span>';
                             var cellElement = $compile(html)(scope);
                             iElem.append(cellElement[0]);
                         }
@@ -26,15 +26,6 @@
                         /* Wrapping in timeout to access the DOM after it has been rendered */
                         $timeout(function () {
                             addCustomCellClass(scope.cols, iElem);
-                        });
-
-                        scope.$watch('rows', function (newValue, oldValue) {
-                            /* Wrapping in timeout to access the DOM after it has been rendered */
-                            if (newValue && oldValue) {
-                                $timeout(function () {
-                                    addCustomCellClass(scope.cols, iElem);
-                                });
-                            }
                         });
                     }
                 };

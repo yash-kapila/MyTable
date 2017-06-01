@@ -4,9 +4,9 @@
 
     angular.module('app').controller('demoCtrl', Ctrl);
 
-    Ctrl.$inject = ['demoService'];
+    Ctrl.$inject = ['demoService', '$filter'];
 
-    function Ctrl(demoService) {
+    function Ctrl(demoService, $filter) {
         var vm = this;
 
         vm.init = function () {
@@ -24,8 +24,8 @@
             };
         };
 
-        vm.testClick = function () {
-            console.log('inside click');
+        vm.testClick = function (record) {
+            console.log(record);
         };
 
         vm.init();

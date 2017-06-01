@@ -4,21 +4,13 @@
     
     angular.module('myTableApp').controller('myTableCtrl', Ctrl);
 
-    Ctrl.$inject = ['myTableConstant', 'myTableService'];
+    Ctrl.$inject = ['myTableConstant', 'myTableService', '$filter'];
 
-    function Ctrl(myTableConstant, myTableService) {
+    function Ctrl(myTableConstant, myTableService, $filter) {
         var vm = this;
-
-        var originalData = [];
 
         vm.$onInit = function () {
             vm.sortingInitializations();
-        };
-
-        vm.$onChanges = function (change) {
-            if (change.tableData.currentValue) {
-                originalData = angular.copy(vm.tableData);
-            }
         };
 
         vm.sortingInitializations = function () {
@@ -37,6 +29,7 @@
         };
 
         vm.sortColumn = function (fieldName, fieldSortingEnabled) {
+            vm.originalOrderList = vm.originalOrderList || vm.tableData;
             if (fieldSortingEnabled) {
                 /*  If current sort order is NONE, do ASCENDING sort;
                     If current sort order is ASCENDING, do DESCENDING sort;
@@ -44,13 +37,13 @@
                 */
                 if (vm.currentSortOrder[fieldName] === vm.sortOrder[fieldName][0]) {
                     vm.currentSortOrder[fieldName] = vm.sortOrder[fieldName][1];
-                    myTableService.sortASC(vm.tableData, fieldName);
+                    vm.tableData = $filter('orderBy')(vm.originalOrderList, fieldName, false);
                 } else if (vm.currentSortOrder[fieldName] === vm.sortOrder[fieldName][1]) {
                     vm.currentSortOrder[fieldName] = vm.sortOrder[fieldName][2];
-                    myTableService.sortDESC(vm.tableData, fieldName);
+                    vm.tableData = $filter('orderBy')(vm.originalOrderList, fieldName, true);
                 } else {
                     vm.currentSortOrder[fieldName] = vm.sortOrder[fieldName][0];
-                    vm.tableData = angular.copy(originalData);
+                    vm.tableData = $filter('orderBy')(vm.originalOrderList, null);
                 }
                 /* Reset Sort Order of other columns to NONE */
                 for (var key in vm.currentSortOrder) {
