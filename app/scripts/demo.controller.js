@@ -4,9 +4,9 @@
 
     angular.module('app').controller('demoCtrl', Ctrl);
 
-    Ctrl.$inject = ['demoService', '$filter'];
+    Ctrl.$inject = ['demoService'];
 
-    function Ctrl(demoService, $filter) {
+    function Ctrl(demoService) {
         var vm = this;
 
         vm.init = function () {
@@ -19,8 +19,7 @@
             });
 
             vm.appScope = {
-                testClick: vm.testClick,
-                test: 10
+                testClick: vm.testClick
             };
         };
 
