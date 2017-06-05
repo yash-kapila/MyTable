@@ -39,12 +39,6 @@
             });
         };
 
-        vm.filterTableData = function (fieldName, filterName, searchField) {
-            vm.unfilteredList = vm.unfilteredList || vm.tableData;
-            searchField = (!!searchField) ? searchField : '';
-            vm.tableData = $filter(filterName)(vm.tableData, fieldName, searchField);
-        };
-
         vm.sortColumn = function (fieldName, fieldSortingEnabled) {
             vm.originalOrderList = vm.originalOrderList || vm.tableData;
             if (fieldSortingEnabled) {

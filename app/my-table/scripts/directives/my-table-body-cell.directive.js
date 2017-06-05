@@ -1,7 +1,7 @@
 (function () {
 
     'use strict';
-    
+
     angular.module('myTableApp').directive('myTableBodyCell', function ($compile, $timeout) {
         return {
             restrict: 'A',
