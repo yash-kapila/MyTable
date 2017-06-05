@@ -10,14 +10,25 @@
         var vm = this;
 
         vm.$onInit = function () {
+            vm.myTableColumns = angular.copy(vm.columnsConfig);
+            vm.filteringInitializations();
             vm.sortingInitializations();
+        };
+
+        vm.filteringInitializations = function () {
+            angular.forEach(vm.myTableColumns, function (el, id) {
+                el.enableFiltering = (el.enableFiltering === true) ? true : false;
+                if (el.enableFiltering) {
+                    el.filter = el.filter ? el.filter : myTableConstant.defaultFilterName;
+                }
+            });
         };
 
         vm.sortingInitializations = function () {
             vm.sortOrder = {};
             vm.currentSortOrder = {};
             /* Set default sorting behavior of columns to TRUE unless specified FALSE explicitly */
-            angular.forEach(vm.columnsConfig, function (el, id) {
+            angular.forEach(vm.myTableColumns, function (el, id) {
                 if (el.enableSorting === undefined || el.enableSorting === true || el.enableSorting === null || el.enableSorting === '') {
                     el.enableSorting = true;
                     vm.sortOrder[el.name] = myTableConstant.sortOrder;
@@ -26,6 +37,12 @@
                     el.enableSorting = false;
                 }
             });
+        };
+
+        vm.filterTableData = function (fieldName, filterName, searchField) {
+            vm.unfilteredList = vm.unfilteredList || vm.tableData;
+            searchField = (!!searchField) ? searchField : '';
+            vm.tableData = $filter(filterName)(vm.tableData, fieldName, searchField);
         };
 
         vm.sortColumn = function (fieldName, fieldSortingEnabled) {

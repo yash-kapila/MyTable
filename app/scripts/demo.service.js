@@ -13,9 +13,9 @@
                             '</button>';
 
             var config = [
-                { heading: 'Name', name: 'name', cellWidth: '32', headerClass: '', cellClass: 'red' },
-                { heading: 'Gender', name: 'gender', cellWidth: '32', headerClass: 'red', cellClass: '', enableSorting: false },
-                { heading: 'Company', name: 'company', cellWidth: '32', headerClass: '', cellClass: '' },
+                { heading: 'Name', name: 'name', cellWidth: '32', headerClass: '', cellClass: 'red', enableFiltering: true },
+                { heading: 'Gender', name: 'gender', cellWidth: '32', headerClass: 'red', cellClass: '', enableSorting: false, enableFiltering: true, filter: '' },
+                { heading: 'Company', name: 'company', cellWidth: '32', headerClass: '', cellClass: '', enableFiltering: false },
                 { heading: 'Action', name: 'action', cellWidth: '4', cellTemplate: template, headerCellTemplate: '', enableSorting: false }
             ];
 

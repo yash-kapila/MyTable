@@ -14,6 +14,10 @@
     padding: 5px;
 }
 
+.my-table-container .my-table .my-table-heading .my-table-heading-row .my-table-heading-cols .my-table-filter-container {
+    margin: 5px 0;
+}
+
 .my-table-container .my-table .my-table-heading .my-table-heading-row .my-table-heading-cols .sort-icon-container {
     vertical-align: middle;
 }
