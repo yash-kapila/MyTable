@@ -1,5 +1,5 @@
 (function () {
-    
+
     'use strict';
 
     angular.module('app').controller('demoCtrl', Ctrl);
@@ -13,9 +13,10 @@
             vm.columnsConfig = demoService.gridConfiguration();
             demoService.getDataForGrid().then(function (data) {
                 vm.gridData = data;
+                console.log(vm.gridData.length);
             })
             .catch(function (data) {
-                vm.gridData = [];  
+                vm.gridData = [];
             });
 
             vm.appScope = {
@@ -24,7 +25,14 @@
         };
 
         vm.testClick = function (record) {
-            console.log(record);
+            var index = 0;
+            for (var i=0;i<vm.gridData.length;i++) {
+                if (vm.gridData[i].name === record.name) {
+                    index = i;
+                    break;
+                }
+            };
+            vm.gridData.splice(index, 1);
         };
 
         vm.init();

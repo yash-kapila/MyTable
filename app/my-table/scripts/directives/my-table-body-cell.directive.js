@@ -23,10 +23,9 @@
                         }
                     },
                     post: function (scope, iElem, iAttrs) {
-                        /* Wrapping in timeout to access the DOM after it has been rendered */
-                        $timeout(function () {
+                        scope.$watch('row', function () {
                             addCustomCellClass(scope.cols, iElem);
-                        });
+                        })
                     }
                 };
             }
