@@ -11,7 +11,6 @@
                             return val[fieldName].toLowerCase().indexOf(filterValue.toLowerCase()) !== -1;
                         else
                             return val[fieldName].indexOf(filterValue) !== -1;
-                        
                     });
                     return filter;
                 } else {

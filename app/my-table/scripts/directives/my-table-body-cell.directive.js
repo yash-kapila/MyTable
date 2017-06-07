@@ -17,7 +17,7 @@
                             var cellElement = $compile(scope.cols.cellTemplate)(scope);
                             iElem.append(cellElement[0]);
                         } else {
-                            var html = '<span> {{row[cols.name]}} </span>';
+                            var html = '<span> {{::row[cols.name]}} </span>';
                             var cellElement = $compile(html)(scope);
                             iElem.append(cellElement[0]);
                         }

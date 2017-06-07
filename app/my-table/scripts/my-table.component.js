@@ -8,6 +8,7 @@
         bindings: {
             tableData: '<',
             columnsConfig: '<',
+            pagination: '<',
             appScope: '<'
         }
     }

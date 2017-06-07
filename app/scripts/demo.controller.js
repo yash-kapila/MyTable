@@ -10,10 +10,9 @@
         var vm = this;
 
         vm.init = function () {
-            vm.columnsConfig = demoService.gridConfiguration();
+            vm.gridConfig = demoService.gridConfiguration();
             demoService.getDataForGrid().then(function (data) {
                 vm.gridData = data;
-                console.log(vm.gridData.length);
             })
             .catch(function (data) {
                 vm.gridData = [];
