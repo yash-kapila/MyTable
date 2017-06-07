@@ -11,13 +11,24 @@
 
         vm.$onInit = function () {
             vm.myTableColumns = angular.copy(vm.columnsConfig);
-            vm.paginationInitialization();
             vm.filteringInitializations();
             vm.sortingInitializations();
         };
 
-        vm.paginationInitialization = function () {
+        vm.$onChanges = function (changes) {
+            if (!!changes.tableData.currentValue) {
+                vm.paginationInitializations();
+            }
+        };
 
+        vm.paginationInitializations = function () {
+            if (vm.pagination.available) {
+                vm.paginationConfig = myTableService.paginationInitializations(vm.pagination, myTableConstant.paginationConfig, vm.tableData);
+                vm.displayRecords = vm.tableData.slice(0, vm.paginationConfig.size);
+            }
+            else {
+                vm.displayRecords = vm.tableData.slice(0);
+            }
         };
 
         vm.filteringInitializations = function () {

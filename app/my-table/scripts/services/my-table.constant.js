@@ -9,7 +9,10 @@
             '2': 'DSC'
         },
         defaultFilterTemplate: '<input type="text" class="form-control" ng-model="cols.filterModel">',
-        defaultFilterName: 'myTableDefaultFilter'
+        defaultFilterName: 'myTableDefaultFilter',
+        paginationConfig: {
+            defaultSize: 10
+        }
     };
 
     angular.module('myTableApp').constant('myTableConstant', constants);
