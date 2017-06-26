@@ -41,10 +41,12 @@
         };
 
         vm.sortColumn = function (fieldName, fieldSortingEnabled) {
-            vm.originalOrderList = vm.originalOrderList || vm.displayRecords;
+            vm.originalOrderList = vm.originalOrderList || vm.tableData;
             if (fieldSortingEnabled) {
                 var sortedColumns = myTableService.sortColumn(vm.originalOrderList, vm.sortOrder, vm.currentSortOrder, fieldName)
-                vm.displayRecords = sortedColumns.tableData;
+                vm.paginationConfig.currentPage = 1;
+                vm.tableData = sortedColumns.tableData;
+                vm.displayRecords = vm.pagination.available ? vm.tableData.slice(0, vm.paginationConfig.size) : vm.tableData;
                 vm.sortOrder = sortedColumns.sortOrder;
                 vm.currentSortOrder = sortedColumns.currentSortOrder;
             } else {
