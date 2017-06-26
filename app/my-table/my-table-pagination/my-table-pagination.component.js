@@ -6,7 +6,8 @@
         templateUrl: 'my-table/my-table-pagination/my-table-pagination.html',
         controller: 'myTablePaginationCtrl',
         bindings: {
-            paginationConfig: '<'
+            paginationConfig: '<',
+            fetchNewPage: '&'
         }
     }
 

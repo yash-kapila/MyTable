@@ -25,8 +25,7 @@
             if (vm.pagination.available) {
                 vm.paginationConfig = myTableService.paginationInitializations(vm.pagination, myTableConstant.paginationConfig, vm.tableData);
                 vm.displayRecords = vm.tableData.slice(0, vm.paginationConfig.size);
-            }
-            else {
+            } else {
                 vm.displayRecords = vm.tableData.slice(0);
             }
         };
@@ -42,15 +41,21 @@
         };
 
         vm.sortColumn = function (fieldName, fieldSortingEnabled) {
-            vm.originalOrderList = vm.originalOrderList || vm.tableData;
+            vm.originalOrderList = vm.originalOrderList || vm.displayRecords;
             if (fieldSortingEnabled) {
                 var sortedColumns = myTableService.sortColumn(vm.originalOrderList, vm.sortOrder, vm.currentSortOrder, fieldName)
-                vm.tableData = sortedColumns.tableData;
+                vm.displayRecords = sortedColumns.tableData;
                 vm.sortOrder = sortedColumns.sortOrder;
                 vm.currentSortOrder = sortedColumns.currentSortOrder;
             } else {
                 return;
             }
+        };
+
+        vm.fetchNewPage = function (id) {
+            var start = (id - 1) * vm.paginationConfig.size;
+            var end = id * vm.paginationConfig.size;
+            vm.displayRecords = vm.tableData.slice(start, end);
         };
     };
 })();

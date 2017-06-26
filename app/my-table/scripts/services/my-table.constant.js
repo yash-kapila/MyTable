@@ -11,7 +11,8 @@
         defaultFilterTemplate: '<input type="text" class="form-control" ng-model="cols.filterModel">',
         defaultFilterName: 'myTableDefaultFilter',
         paginationConfig: {
-            defaultSize: 10
+            defaultSize: 10,
+            available: false
         }
     };
 
