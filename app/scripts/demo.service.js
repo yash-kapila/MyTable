@@ -19,9 +19,9 @@
                                 '</select>';    
 
             var columnsConfig = [
-                { heading: 'Name', name: 'name', cellWidth: '32', headerClass: '', cellClass: 'red', enableFiltering: false },
+                { heading: 'Name', name: 'name', cellWidth: '32', headerClass: '', cellClass: 'red', enableSorting: false, enableFiltering: false },
                 { heading: 'Gender', name: 'gender', cellWidth: '32', headerClass: 'red', cellClass: '', enableSorting: false, enableFiltering: false, filterTemplate: filterTemplate, filter: 'customFilter' },
-                { heading: 'Company', name: 'company', cellWidth: '32', headerClass: '', cellClass: '', enableFiltering: false },
+                { heading: 'Company', name: 'company', cellWidth: '32', headerClass: '', cellClass: '', enableSorting: false, enableFiltering: false },
                 { heading: 'Action', name: 'action', cellWidth: '4', cellTemplate: template, headerCellTemplate: '', enableSorting: false }
             ];
 
