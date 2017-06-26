@@ -24,6 +24,7 @@
         };
 
         vm.testClick = function (record) {
+            console.log("HELLO");
             var index = 0;
             for (var i=0;i<vm.gridData.length;i++) {
                 if (vm.gridData[i].name === record.name) {

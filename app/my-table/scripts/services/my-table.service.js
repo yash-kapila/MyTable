@@ -11,7 +11,7 @@
         this.paginationInitializations = function (pagination, paginationConfig, allRecords) {
             var config = {};
 
-            config.available = pagination.available;
+            config.available = pagination.available ? pagination.available : paginationConfig.available;
             config.size = pagination.size ? pagination.size : paginationConfig.defaultSize;
             config.totalPages = (allRecords.length%config.size) === 0 ? allRecords.length/config.size : Math.floor(allRecords.length/config.size) + 1;
             config.currentPage = 1;
