@@ -44,9 +44,13 @@
             vm.originalOrderList = vm.originalOrderList || vm.tableData;
             if (fieldSortingEnabled) {
                 var sortedColumns = myTableService.sortColumn(vm.originalOrderList, vm.sortOrder, vm.currentSortOrder, fieldName)
-                vm.paginationConfig.currentPage = 1;
                 vm.tableData = sortedColumns.tableData;
-                vm.displayRecords = vm.pagination.available ? vm.tableData.slice(0, vm.paginationConfig.size) : vm.tableData;
+                if (vm.pagination.available) {
+                    vm.paginationConfig.currentPage = 1;
+                    vm.displayRecords = vm.tableData.slice(0, vm.paginationConfig.size);
+                } else {
+                    vm.displayRecords = vm.tableData.slice(0);
+                }
                 vm.sortOrder = sortedColumns.sortOrder;
                 vm.currentSortOrder = sortedColumns.currentSortOrder;
             } else {
