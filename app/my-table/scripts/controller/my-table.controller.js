@@ -45,23 +45,18 @@
             if (fieldSortingEnabled) {
                 var sortedColumns = myTableService.sortColumn(vm.originalOrderList, vm.sortOrder, vm.currentSortOrder, fieldName)
                 vm.tableData = sortedColumns.tableData;
-                if (vm.pagination.available) {
-                    vm.paginationConfig.currentPage = 1;
-                    vm.displayRecords = vm.tableData.slice(0, vm.paginationConfig.size);
-                } else {
-                    vm.displayRecords = vm.tableData.slice(0);
-                }
+                vm.filteredRecords = sortedColumns.tableData;
                 vm.sortOrder = sortedColumns.sortOrder;
                 vm.currentSortOrder = sortedColumns.currentSortOrder;
+                vm.paginationInitializations();
+                vm.myTableColumns = myTableService.resetFilterValues(vm.myTableColumns);
             } else {
                 return;
             }
-            vm.myTableColumns = myTableService.resetFilterValues(vm.myTableColumns);
         };
 
         vm.filterColumn = function () {
             vm.filteredRecords = $filter('myTableFilter')(vm.tableData, vm.myTableColumns);
-            vm.filteredRecords = vm.filteredRecords || [];
             if (vm.pagination.available) {
                 vm.paginationConfig = myTableService.paginationInitializations(vm.pagination, myTableConstant.paginationConfig, vm.filteredRecords);
                 vm.displayRecords = vm.filteredRecords.slice(0, vm.paginationConfig.size);
@@ -73,7 +68,7 @@
         vm.fetchNewPage = function (id) {
             var start = (id - 1) * vm.paginationConfig.size;
             var end = id * vm.paginationConfig.size;
-            vm.displayRecords = vm.filteredRecords.length ? vm.filteredRecords.slice(start, end) : vm.tableData.slice(start, end);
+            vm.displayRecords = vm.filteredRecords ? vm.filteredRecords.slice(start, end) : vm.tableData.slice(start, end);
         };
     };
 })();
