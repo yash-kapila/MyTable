@@ -12,7 +12,7 @@
     	vm.$onChanges = function (changes) {
     		if(changes.paginationConfig.currentValue) {
     			vm.paginationBar = [];
-    			var numberOfPages = changes.paginationConfig.currentValue.size;
+    			var numberOfPages = changes.paginationConfig.currentValue.totalPages;
     			for(var i=1;i<=numberOfPages;i++) {
     				vm.paginationBar.push(i);
     			}

@@ -77,6 +77,13 @@
                 currentSortOrder: currentSortOrder,
                 sortOrder: sortOrder
             };
-        }
+        };
+
+        this.resetFilterValues = function (myTableColumns) {
+            angular.forEach(myTableColumns, function(elem, key){
+                elem.filterModel = '';
+            });
+            return myTableColumns;
+        };
     };
 })();
