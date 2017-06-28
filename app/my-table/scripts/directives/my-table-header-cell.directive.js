@@ -24,6 +24,12 @@
                             setCellWidth(scope.cols, iElem, defaultCellWidth);
                             addCustomHeaderClass(scope.cols, iElem);
                         });
+
+                        scope.$watch('cols.filterModel', function(newValue, oldValue) {
+                            /* Call My-Table controller method when filter value changes */
+                            var parent = scope.$parent.$ctrl;
+                            parent.filterColumn();
+                        });
                     }
                 }
             }

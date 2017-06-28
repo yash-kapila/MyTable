@@ -4,9 +4,9 @@
     
     angular.module('myTableApp').controller('myTableCtrl', Ctrl);
 
-    Ctrl.$inject = ['myTableConstant', 'myTableService'];
+    Ctrl.$inject = ['$filter', 'myTableConstant', 'myTableService'];
 
-    function Ctrl(myTableConstant, myTableService) {
+    function Ctrl($filter, myTableConstant, myTableService) {
         var vm = this;
 
         vm.$onInit = function () {
@@ -56,12 +56,24 @@
             } else {
                 return;
             }
+            vm.myTableColumns = myTableService.resetFilterValues(vm.myTableColumns);
+        };
+
+        vm.filterColumn = function () {
+            vm.filteredRecords = $filter('myTableFilter')(vm.tableData, vm.myTableColumns);
+            vm.filteredRecords = vm.filteredRecords || [];
+            if (vm.pagination.available) {
+                vm.paginationConfig = myTableService.paginationInitializations(vm.pagination, myTableConstant.paginationConfig, vm.filteredRecords);
+                vm.displayRecords = vm.filteredRecords.slice(0, vm.paginationConfig.size);
+            } else {
+                vm.displayRecords = vm.filteredRecords.slice(0);
+            }
         };
 
         vm.fetchNewPage = function (id) {
             var start = (id - 1) * vm.paginationConfig.size;
             var end = id * vm.paginationConfig.size;
-            vm.displayRecords = vm.tableData.slice(start, end);
+            vm.displayRecords = vm.filteredRecords.length ? vm.filteredRecords.slice(start, end) : vm.tableData.slice(start, end);
         };
     };
 })();

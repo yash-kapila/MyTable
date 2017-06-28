@@ -1,8 +1,10 @@
-<ul class="pagination pull-right">
-	<li 
-		ng-repeat="page in $ctrl.paginationBar" 
-		ng-class="{'active': page === $ctrl.paginationConfig.currentPage}"
-		ng-click="$ctrl.fetchNewPageData(page)">
-		<a href="#"> {{page}} </a>
-	</li>
-</ul>
+<div class="my-table-pagination-container" ng-hide="$ctrl.paginationBar.length === 1">
+	<ul class="pagination pull-right">
+		<li 
+			ng-repeat="page in $ctrl.paginationBar" 
+			ng-class="{'active': page === $ctrl.paginationConfig.currentPage}"
+			ng-click="$ctrl.fetchNewPageData(page)">
+			<a href="#"> {{page}} </a>
+		</li>
+	</ul>
+</div>

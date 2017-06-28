@@ -19,8 +19,8 @@
                                 '</select>';    
 
             var columnsConfig = [
-                { heading: 'Name', name: 'name', cellWidth: '32', headerClass: '', cellClass: 'red', enableFiltering: false },
-                { heading: 'Gender', name: 'gender', cellWidth: '32', headerClass: 'red', cellClass: '', enableSorting: false, enableFiltering: false, filterTemplate: filterTemplate, filter: 'customFilter' },
+                { heading: 'Name', name: 'name', cellWidth: '32', headerClass: '', cellClass: 'red', enableFiltering: true },
+                { heading: 'Gender', name: 'gender', cellWidth: '32', headerClass: 'red', cellClass: '', enableSorting: false, enableFiltering: true, filterTemplate: filterTemplate, filter: 'customFilter' },
                 { heading: 'Company', name: 'company', cellWidth: '32', headerClass: '', cellClass: '', enableFiltering: false },
                 { heading: 'Action', name: 'action', cellWidth: '4', cellTemplate: template, headerCellTemplate: '', enableSorting: false }
             ];
@@ -28,7 +28,8 @@
             return {
                 columnsConfig: columnsConfig,
                 pagination: {
-                    available: true
+                    available: false,
+                    size: 8
                 }    
             };
         };
