@@ -3,7 +3,7 @@
     'use strict';
 
     var myTablePagination = {
-        templateUrl: 'my-table/my-table-pagination/my-table-pagination.html',
+        templateUrl: 'my-table-pagination/my-table-pagination.html',
         controller: 'myTablePaginationCtrl',
         bindings: {
             paginationConfig: '<',

@@ -3,7 +3,7 @@
     'use strict';
     
     var myTable = {
-        templateUrl: 'my-table/templates/my-table.html',
+        templateUrl: 'templates/my-table.html',
         controller: 'myTableCtrl',
         bindings: {
             tableData: '<',

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+    <meta charset="utf-8" />
+    <title>My Table</title>
+
+    <!-- VENDOR SCRIPTS -->
+    <script src="vendor/angular.js"></script>
+    <script src="vendor/jquery.js"></script>
+    <script src="vendor/bootstrap.js"></script>
+
+    <!-- APPLICATION SCRIPTS -->
+    <script src="app.js"></script>
+    <script src="scripts/demo.controller.js"></script>
+    <script src="scripts/demo.service.js"></script>
+    <script src="scripts/demo.filter.js"></script>
+
+    <!-- MY TABLE COMPONENT SCRIPTS -->
+    <script src="my-table/my-table.app.js"></script>
+    <script src="my-table/scripts/my-table.component.js"></script>
+    <script src="my-table/scripts/services/my-table.service.js"></script>
+    <script src="my-table/scripts/services/my-table.constant.js"></script>
+    <script src="my-table/scripts/controller/my-table.controller.js"></script>
+    <script src="my-table/scripts/directives/my-table-body-cell.directive.js"></script>
+    <script src="my-table/scripts/directives/my-table-header-cell.directive.js"></script>
+    <script src="my-table/scripts/filters/my-table.filter.js"></script>
+    <script src="my-table/scripts/filters/my-table-default.filter.js"></script>
+    <script src="my-table/my-table-pagination/my-table-pagination.component.js"></script>
+    <script src="my-table/my-table-pagination/my-table-pagination.controller.js"></script>
+
+    <!-- VENDOR STYLES -->
+    <link rel="stylesheet" href="vendor/bootstrap.css" />
+
+    <!-- APPLICATION STYLES -->
+    <link rel="stylesheet" href="styles/styles.css" />
+    <!-- MY TABLE COMPONENT STYLES -->
+    <link rel="stylesheet" href="my-table/styles/my-table.css" />
+</head>
+
+<body>
+    <div class="container" ng-controller="demoCtrl as ctrl">
+        <div class="custom-table-container">
+            <div class="custom-table-heading">
+                <h1> My Table </h1>
+            </div>
+            <div class="custom-table">
+                <my-table
+                    table-data="ctrl.gridData"
+                    columns-config="ctrl.gridConfig.columnsConfig"
+                    pagination="ctrl.gridConfig.pagination"
+                    app-scope="ctrl.appScope">
+                </my-table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
