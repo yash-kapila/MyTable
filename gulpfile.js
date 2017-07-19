@@ -2,11 +2,20 @@ var gulp = require('gulp');
 var del = require('del');
 var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
+var babel = require('gulp-babel');
 var templateCache = require('gulp-angular-templateCache');
 
 var vendorJSFiles = ['./app/vendor/angular.js', './app/vendor/jquery.js', './app/vendor/bootstrap.js'];
 var appJSFiles = ['./app/app.js', './app/scripts/*.js', './app/my-table/**/*.js'];
 var appCSSFiles = ['./app/styles/*.css', './app/my-table/**/*.css'];
+
+function transpileES6 () {
+	gulp.src('./app/app.js')
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(gulp.dest('./build'))
+};
 
 function buildIndexHtml () {
 	return gulp.src('./app/index.html')
@@ -34,6 +43,9 @@ function buildAppCSS () {
 function buildAppJS () {
 	return gulp.src(appJSFiles)
 		.pipe(concat('bundle.js'))
+        .pipe(babel({
+            presets: ['es2015']
+        }))		
 		.pipe(gulp.dest('./build'));
 };
 
@@ -74,6 +86,8 @@ gulp.task('buildAppCSS', buildAppCSS);
 gulp.task('buildIndexHtml', buildIndexHtml);
 
 gulp.task('bundleTemplates', bundleTemplates);
+
+gulp.task('transpileES6', transpileES6);
 
 /**
 *	Sequential execution of tasks using run-sequence plugin

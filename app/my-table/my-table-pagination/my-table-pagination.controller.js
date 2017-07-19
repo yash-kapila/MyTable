@@ -1,29 +1,20 @@
-(function () {
-
-    'use strict';
-
-    angular.module('myTableApp').controller('myTablePaginationCtrl', Ctrl);
-
-    Ctrl.$inject = [];
-
-    function Ctrl () {
-    	var vm = this;
-
-    	vm.$onChanges = function (changes) {
-    		if(changes.paginationConfig.currentValue) {
-    			vm.paginationBar = [];
-    			var numberOfPages = changes.paginationConfig.currentValue.totalPages;
-    			for(var i=1;i<=numberOfPages;i++) {
-    				vm.paginationBar.push(i);
-    			}
-    		}
-    	};
-
-    	vm.fetchNewPageData = function (pageID) {
-    		vm.paginationConfig.currentPage = pageID;
-    		vm.fetchNewPage({
-    			id: pageID
-    		});
-    	};
+class MyTablePaginationCtrl {
+    $onChanges (changes) {
+        if(changes.paginationConfig.currentValue) {
+            this.paginationBar = [];
+            let numberOfPages = changes.paginationConfig.currentValue.totalPages;
+            for(let i=1;i<=numberOfPages;i++) {
+                this.paginationBar.push(i);
+            }
+        }
     };
-})();
+
+    fetchNewPageData (pageID) {
+        this.paginationConfig.currentPage = pageID;
+        this.fetchNewPage({
+            id: pageID
+        });
+    };
+};
+
+angular.module('myTableApp').controller('myTablePaginationCtrl', MyTablePaginationCtrl);

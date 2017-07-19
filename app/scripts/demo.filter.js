@@ -1,26 +1,27 @@
-(function () {
+class CustomFilter {
+    constructor ($filter) {
+        this.$filter = $filter;
 
-    'use strict';
-
-    angular.module('app').filter('customFilter', CustomFilter);
-
-    CustomFilter.$inject = ['$filter'];
-
-    function CustomFilter ($filter) {
-        return function (data, name, value) {
+        return (data, name, value) => {
             if (value === 'male') {
-                var pattern = /^male$/;
-                var filter = data.filter(function (el, key) {
+                let pattern = /^male$/;
+                let filter = data.filter((el, key) => {
                     return el[name].match(pattern);
                 });
                 return filter;
             } else {
-                var pattern = /^female$/;
-                var filter = data.filter(function (el, key) {
+                let pattern = /^female$/;
+                let filter = data.filter((el, key) => {
                     return el[name].match(pattern);
                 });
                 return filter;
-            }
+            } 
         }
     };
-})();
+
+    static filter ($filter) {
+        return new CustomFilter($filter);
+    };
+};
+
+angular.module('app').filter('customFilter', CustomFilter.filter);

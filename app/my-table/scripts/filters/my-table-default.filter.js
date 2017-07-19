@@ -1,12 +1,9 @@
-(function () {
-
-    'use strict';
-
-    angular.module('myTableApp').filter('myTableDefaultFilter', function () {
-        return function (tableData, fieldName, filterValue) {
+class MyTableDefaultFilter {
+    constructor () {
+        return (tableData, fieldName, filterValue) => {
             if (!!tableData) {
                 if (filterValue) {
-                    var filter = tableData.filter(function (val, key) {
+                    let filter = tableData.filter((val, key) => {
                         if (typeof val[fieldName] === 'string')
                             return val[fieldName].toLowerCase().indexOf(filterValue.toLowerCase()) !== -1;
                         else
@@ -20,5 +17,11 @@
                 return tableData;
             };
         };
-    });
-})();
+    };
+
+    static filter () {
+        return new MyTableDefaultFilter();
+    };
+};
+
+angular.module('myTableApp').filter('myTableDefaultFilter', MyTableDefaultFilter.filter);

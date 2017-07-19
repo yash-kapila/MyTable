@@ -1,3 +1,1 @@
-(function () {
-    angular.module('myTableApp', []);
-})();
+angular.module('myTableApp', []);

@@ -1,42 +1,46 @@
-(function () {
+class MyTableBodyCell {
+    constructor ($compile, $timeout) {
+        this.restrict = 'A';
+        this.scope = {
+            cols: '=',
+            row: '=',
+            appScope: '='
+        };
+        this.$compile = $compile;
+        this.$timeout = $timeout;
+    };
 
-    'use strict';
-
-    angular.module('myTableApp').directive('myTableBodyCell', function ($compile, $timeout) {
+    compile (tElem, tAttrs) {
         return {
-            restrict: 'A',
-            scope: {
-                cols: '=',
-                row: '=',
-                appScope: '='
+            pre: (scope, iElem, iAttrs) => {
+                if (scope.cols.cellTemplate) {
+                    let cellElement = this.$compile(scope.cols.cellTemplate)(scope);
+                    iElem.append(cellElement[0]);
+                } else {
+                    let html = '<span> {{row[cols.name]}} </span>';
+                    let cellElement = this.$compile(html)(scope);
+                    iElem.append(cellElement[0]);
+                }
             },
-            compile: function (tElem, tAttrs) {
-                return {
-                    pre: function (scope, iElem, iAttrs) {
-                        if (scope.cols.cellTemplate) {
-                            var cellElement = $compile(scope.cols.cellTemplate)(scope);
-                            iElem.append(cellElement[0]);
-                        } else {
-                            var html = '<span> {{row[cols.name]}} </span>';
-                            var cellElement = $compile(html)(scope);
-                            iElem.append(cellElement[0]);
-                        }
-                    },
-                    post: function (scope, iElem, iAttrs) {
-                        scope.$watch('row', function () {
-                            addCustomCellClass(scope.cols, iElem);
-                        })
-                    }
-                };
+            post: (scope, iElem, iAttrs) => {
+                scope.$watch('row', () => {
+                    this.addCustomCellClass(scope.cols, iElem);
+                });
             }
         };
+    };
 
-        function addCustomCellClass(cols, elem) {
-            if (cols.cellClass) {
-                elem.parent().addClass(cols.cellClass)
-            } else {
-                return;
-            }
-        };
-    });
-})();
+    addCustomCellClass (cols, elem) {
+        if (cols.cellClass) {
+            elem.parent().addClass(cols.cellClass)
+        } else {
+            return;
+        }
+    };
+
+    static directive ($compile, $timeout) {
+        return new MyTableBodyCell($compile, $timeout);
+    };
+};
+
+angular.module('myTableApp').directive('myTableBodyCell', MyTableBodyCell.directive);

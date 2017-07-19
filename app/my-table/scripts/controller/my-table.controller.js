@@ -1,74 +1,71 @@
-(function () {
-
-    'use strict';
-    
-    angular.module('myTableApp').controller('myTableCtrl', Ctrl);
-
-    Ctrl.$inject = ['$filter', 'myTableConstant', 'myTableService'];
-
-    function Ctrl($filter, myTableConstant, myTableService) {
-        var vm = this;
-
-        vm.$onInit = function () {
-            vm.myTableColumns = angular.copy(vm.columnsConfig);
-            vm.filteringInitializations();
-            vm.sortingInitializations();
-        };
-
-        vm.$onChanges = function (changes) {
-            if (!!changes.tableData.currentValue) {
-                vm.paginationInitializations();
-            }
-        };
-
-        vm.paginationInitializations = function () {
-            if (vm.pagination.available) {
-                vm.paginationConfig = myTableService.paginationInitializations(vm.pagination, myTableConstant.paginationConfig, vm.tableData);
-                vm.displayRecords = vm.tableData.slice(0, vm.paginationConfig.size);
-            } else {
-                vm.displayRecords = vm.tableData.slice(0);
-            }
-        };
-
-        vm.filteringInitializations = function () {
-            vm.myTableColumns = myTableService.filteringInitializations(vm.myTableColumns, myTableConstant.defaultFilterName);
-        };
-
-        vm.sortingInitializations = function () {
-            var sortingInitializations = myTableService.sortingInitializations(vm.myTableColumns, myTableConstant.sortOrder);
-            vm.sortOrder = sortingInitializations.sortOrder;
-            vm.currentSortOrder = sortingInitializations.currentSortOrder;
-        };
-
-        vm.sortColumn = function (fieldName, fieldSortingEnabled) {
-            vm.originalOrderList = vm.originalOrderList || vm.tableData;
-            if (fieldSortingEnabled) {
-                var sortedColumns = myTableService.sortColumn(vm.originalOrderList, vm.sortOrder, vm.currentSortOrder, fieldName)
-                vm.tableData = sortedColumns.tableData;
-                vm.filteredRecords = sortedColumns.tableData;
-                vm.sortOrder = sortedColumns.sortOrder;
-                vm.currentSortOrder = sortedColumns.currentSortOrder;
-                vm.paginationInitializations();
-                vm.myTableColumns = myTableService.resetFilterValues(vm.myTableColumns);
-            } else {
-                return;
-            }
-        };
-
-        vm.filterColumn = function () {
-            vm.filteredRecords = $filter('myTableFilter')(vm.tableData, vm.myTableColumns);
-            if (vm.pagination.available) {
-                vm.paginationConfig = myTableService.paginationInitializations(vm.pagination, myTableConstant.paginationConfig, vm.filteredRecords);
-                vm.displayRecords = vm.filteredRecords.slice(0, vm.paginationConfig.size);
-            } else {
-                vm.displayRecords = vm.filteredRecords.slice(0);
-            }
-        };
-
-        vm.fetchNewPage = function (id) {
-            var start = (id - 1) * vm.paginationConfig.size;
-            var end = id * vm.paginationConfig.size;
-            vm.displayRecords = vm.filteredRecords ? vm.filteredRecords.slice(start, end) : vm.tableData.slice(start, end);
-        };
+class MyTableCtrl {
+    constructor ($filter, myTableConstant, myTableService) {
+        this.$filter = $filter;
+        this.myTableConstant = myTableConstant;
+        this.myTableService = myTableService;
     };
-})();
+
+    $onInit () {
+        this.myTableColumns = angular.copy(this.columnsConfig);
+        this.filteringInitializations();
+        this.sortingInitializations();
+    };
+
+    $onChanges (changes) {
+        if (!!changes.tableData.currentValue) {
+            this.paginationInitializations();
+        }
+    };
+
+    paginationInitializations () {
+        if (this.pagination.available) {
+            this.paginationConfig = this.myTableService.paginationInitializations(this.pagination, this.myTableConstant.paginationConfig, this.tableData);
+            this.displayRecords = this.tableData.slice(0, this.paginationConfig.size);
+        } else {
+            this.displayRecords = this.tableData.slice(0);
+        }
+    };
+
+    filteringInitializations () {
+        this.myTableColumns = this.myTableService.filteringInitializations(this.myTableColumns, this.myTableConstant.defaultFilterName);
+    };
+
+    sortingInitializations () {
+        let sortingInitializations = this.myTableService.sortingInitializations(this.myTableColumns, this.myTableConstant.sortOrder);
+        this.sortOrder = sortingInitializations.sortOrder;
+        this.currentSortOrder = sortingInitializations.currentSortOrder;
+    };
+
+    sortColumn (fieldName, fieldSortingEnabled) {
+        this.originalOrderList = this.originalOrderList || this.tableData;
+        if (fieldSortingEnabled) {
+            let sortedColumns = this.myTableService.sortColumn(this.originalOrderList, this.sortOrder, this.currentSortOrder, fieldName)
+            this.tableData = sortedColumns.tableData;
+            this.filteredRecords = sortedColumns.tableData;
+            this.sortOrder = sortedColumns.sortOrder;
+            this.currentSortOrder = sortedColumns.currentSortOrder;
+            this.paginationInitializations();
+            this.myTableColumns = this.myTableService.resetFilterValues(this.myTableColumns);
+        } else {
+            return;
+        }
+    };
+
+    filterColumn () {
+        this.filteredRecords = this.$filter('myTableFilter')(this.tableData, this.myTableColumns) || [];
+        if (this.pagination.available) {
+            this.paginationConfig = this.myTableService.paginationInitializations(this.pagination, this.myTableConstant.paginationConfig, this.filteredRecords);
+            this.displayRecords = this.filteredRecords.slice(0, this.paginationConfig.size);
+        } else {
+            this.displayRecords = this.filteredRecords.slice(0);
+        }
+    };
+
+    fetchNewPage (id) {
+        let start = (id - 1) * this.paginationConfig.size;
+        let end = id * this.paginationConfig.size;
+        this.displayRecords = this.filteredRecords ? this.filteredRecords.slice(start, end) : this.tableData.slice(start, end);
+    };
+};
+
+angular.module('myTableApp').controller('myTableCtrl', MyTableCtrl);

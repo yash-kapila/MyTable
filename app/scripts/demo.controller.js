@@ -1,40 +1,34 @@
-(function () {
-
-    'use strict';
-
-    angular.module('app').controller('demoCtrl', Ctrl);
-
-    Ctrl.$inject = ['demoService'];
-
-    function Ctrl(demoService) {
-        var vm = this;
-
-        vm.init = function () {
-            vm.gridConfig = demoService.gridConfiguration();
-            demoService.getDataForGrid().then(function (data) {
-                vm.gridData = data;
-            })
-            .catch(function (data) {
-                vm.gridData = [];
-            });
-
-            vm.appScope = {
-                testClick: vm.testClick
-            };
-        };
-
-        vm.testClick = function (record) {
-            console.log(record);
-            var index = 0;
-            for (var i=0;i<vm.gridData.length;i++) {
-                if (vm.gridData[i].name === record.name) {
-                    index = i;
-                    break;
-                }
-            };
-            vm.gridData.splice(index, 1);
-        };
-
-        vm.init();
+class DemoCtrl {
+    constructor (demoService) {
+        this.demoService = demoService;
     };
-})();
+
+    $onInit () {
+        this.gridConfig = this.demoService.gridConfiguration();
+        this.demoService.getDataForGrid().then((data) => {
+            this.gridData = data;
+        })
+        .catch((err) => {
+            this.gridData = [];
+        });
+
+        this.appScope = {
+            testClick: this.testClick
+        };
+    };
+
+    testClick () {
+        console.log(record);
+        let index = 0;
+        for (let i=0;i<this.gridData.length;i++) {
+            if (this.gridData[i].name === record.name) {
+                index = i;
+                break;
+            }
+        };
+
+        this.gridData.splice(index, i);
+    };
+};
+
+angular.module('app').controller('demoCtrl', DemoCtrl);
