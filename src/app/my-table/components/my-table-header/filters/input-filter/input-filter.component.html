@@ -1,0 +1,7 @@
+<div class="input-filter-container" (click)="$event.stopPropagation();">
+	<input 
+		type="text" 
+		class="form-control"
+		#myTableInputFilter
+		(keyup)="filterByInput.emit(myTableInputFilter.value)">
+</div>

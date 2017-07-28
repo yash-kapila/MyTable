@@ -1,0 +1,7 @@
+.my-table-header-container .sort-icon-container {
+	vertical-align: middle;
+}
+
+.my-table-header-container .sort-icon-container .sort-icon {
+	margin-left: 5px;
+}

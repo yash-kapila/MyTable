@@ -1,0 +1,29 @@
+<div class="my-table-container">
+    <table class="my-table">
+        <thead class="my-table-heading">
+            <tr class="my-table-heading-row">
+            	<th *ngFor="let cols of myTableColumns; let i=index" class="my-table-heading-cols my-table-heading-cols-{{i+1}}">
+            		<app-my-table-header
+            			[column]="cols"
+            			[currentSortOrder]="currentSortOrder"
+            			(sortColumn)="sortColumn($event)"
+                        (filterMyTable)="filterMyTable($event)">
+            		</app-my-table-header>
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="shownRecords.length" class="my-table-body">
+        	<tr *ngFor="let row of shownRecords; let rowIndex=index"
+        		class="my-table-body-row my-table-body-row-{{i+1}}"
+                [ngClass]="{'even': rowIndex%2===0}">
+        		<td *ngFor="let cols of myTableColumns; let colIndex=index;" 
+                    class="my-table-body-cols my-table-body-cols-{{i+1}}">
+        			<span> {{row[cols.name]}} </span>
+        		</td>
+        </tbody>
+    </table>
+    <app-my-table-pagination
+    	[paginationConfig]="paginationConfig"
+    	(fetchNewPage)="fetchNewPage($event)">
+    </app-my-table-pagination>
+</div>

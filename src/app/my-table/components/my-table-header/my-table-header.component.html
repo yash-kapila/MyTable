@@ -1,0 +1,19 @@
+<div class="my-table-header-container" (click)="sortColumn.emit({name: column.name, enableSorting: column.enableSorting})">
+	<div class="column-name">
+		<span> {{ column.heading }} </span>
+	</div>
+	<div *ngIf="column.enableSorting">
+		<div class="column-sort">
+			<span [ngSwitch]="currentSortOrder[column.name]" class="pull-right sort-icon-container">
+				<span *ngSwitchCase="'ASC'">
+					<i class="glyphicon glyphicon-chevron-up sort-icon"> </i>
+				</span>
+				<span *ngSwitchCase="'DSC'">
+					<i class="glyphicon glyphicon-chevron-down sort-icon"> </i>
+				</span>
+				<span *ngSwitchDefault> </span>
+			</span>
+		</div>
+	</div>
+	<ng-template #columnFilter></ng-template>
+</div>

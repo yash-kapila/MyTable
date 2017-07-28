@@ -1,0 +1,13 @@
+<div class="custom-table-container">
+    <div class="custom-table-heading">
+        <h1> My Table </h1>
+    </div>
+    <div class="custom-table">
+        <app-my-table
+        	[tableData]="gridData"
+            [columnsConfig]="gridConfig.columnsConfig"
+            [pagination]="gridConfig.pagination"
+            [appScope]="appScope">
+        </app-my-table>
+    </div>
+</div>

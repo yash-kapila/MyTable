@@ -1,0 +1,6 @@
+<div class="select-filter-container" (click)="$event.stopPropagation();">
+	<select class="form-control" (change)="filterByInput.emit(selectFilter.value)" #selectFilter>
+		<option value=""> Select </option>
+		<option *ngFor="let item of selectModel"> {{ item.value }} </option>
+	</select>
+</div>

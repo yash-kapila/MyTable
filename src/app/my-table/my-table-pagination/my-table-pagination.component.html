@@ -1,0 +1,10 @@
+<div class="my-table-pagination-container" *ngIf="paginationBar.length !== 1">
+	<ul class="pagination pull-right">
+		<li 
+			*ngFor="let page of paginationBar"
+			[ngClass]="{'active': page === paginationConfig.currentPage}"
+			(click)="fetchNewPageData(page)">
+			<a href="#"> {{page}} </a>
+		</li>
+	</ul>
+</div>
