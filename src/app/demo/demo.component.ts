@@ -17,6 +17,9 @@ export class DemoComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.gridConfig = this.demoService.gridConfiguration();
+        this.gridConfig.columnsConfig[3].bodyCell.bindings = {
+            'testClick': this.testClick
+        };
         this.demoService.getDataForGrid()
         	.subscribe(data => {
         		this.gridData = data;
@@ -29,17 +32,16 @@ export class DemoComponent implements OnInit {
         };
 	};
 
-	testClick(): void {
-        // console.log(record);
-        // let index = 0;
-        // for (let i=0;i<this.gridData.length;i++) {
-        //     if (this.gridData[i].name === record.name) {
-        //         index = i;
-        //         break;
-        //     }
-        // };
+    /* 
+        Arrow function used as this method is passed to the My-Table component as a callback.
+        Need to remember the 'this' value
+    */
+	testClick = (row: any) => {
+        const filteredList = this.gridData.filter((el, index) => {
+            return el.name !== row.name;
+        });
 
-        // this.gridData.splice(index, i);
+        this.gridData = filteredList;
 	};
 
 };

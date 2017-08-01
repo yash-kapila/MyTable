@@ -7,11 +7,12 @@ import { MyTableComponent } from './components/my-table.component';
 import { MyTableService } from './services/my-table.service';
 import { MyTableDefaultPipe } from './pipes/my-table-default-pipe.pipe';
 import { MyTableHeaderComponent } from './components/my-table-header/my-table-header.component';
-import { MyTableBodyComponent } from './components/my-table-body/my-table-body.component';
 
 import { InputFilterComponent } from './components/my-table-header/filters/input-filter/input-filter.component';
 import { SelectFilterComponent } from './components/my-table-header/filters/select-filter/select-filter.component';
 import { RadioFilterComponent } from './components/my-table-header/filters/radio-filter/radio-filter.component';
+import { MyTableCellDirective } from './directives/my-table-cell.directive';
+import { MyTableBodyComponent } from './components/my-table-body/my-table-body.component';
 
 @NgModule({
   imports: [
@@ -27,10 +28,11 @@ import { RadioFilterComponent } from './components/my-table-header/filters/radio
   	MyTableComponent,
   	MyTableDefaultPipe,
   	MyTableHeaderComponent,
-  	MyTableBodyComponent,
     InputFilterComponent,
     SelectFilterComponent,
-    RadioFilterComponent
+    RadioFilterComponent,
+    MyTableCellDirective,
+    MyTableBodyComponent
   ],
   exports: [
   	MyTableComponent

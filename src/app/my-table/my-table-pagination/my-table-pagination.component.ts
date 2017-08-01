@@ -28,6 +28,7 @@ export class MyTablePaginationComponent implements OnInit {
 	}
 
     fetchNewPageData (pageID) {
+    	this.paginationConfig.currentPage = pageID;
         this.fetchNewPage.emit({
             id: pageID
         });
