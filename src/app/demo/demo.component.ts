@@ -11,12 +11,12 @@ import { Demo } from '../models/demo';
 export class DemoComponent implements OnInit {
 	gridConfig: any;
 	gridData: Array<Demo>;
-	appScope: any;
 
 	constructor(private demoService: DemoService) { }
 
 	ngOnInit(): void {
 		this.gridConfig = this.demoService.gridConfiguration();
+        /* Add bindings to table body cell */
         this.gridConfig.columnsConfig[3].bodyCell.bindings = {
             'testClick': this.testClick
         };
@@ -27,9 +27,6 @@ export class DemoComponent implements OnInit {
         	err => {
         		this.gridData = [];
         	});
-        this.appScope = {
-            testClick: this.testClick
-        };
 	};
 
     /* 

@@ -7,10 +7,10 @@ import { Component, OnInit, Compiler, ComponentRef, Injector, Input, NgModule, N
 })
 export class MyTableBodyComponent implements OnInit {
 	defaultTemplate: string;
+	componentRef: ComponentRef<any>;
 	@Input() cellValue: any;
 	@Input() cellConfig: any;
 	@Input() row: any;
-	componentRef: ComponentRef<any>;
 	@ViewChild('bodyCell', {read: ViewContainerRef}) bodyCell: ViewContainerRef;
 
 	constructor(

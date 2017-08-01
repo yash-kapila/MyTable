@@ -8,8 +8,7 @@ export const myTableConfig = {
         '1': 'ASC',
         '2': 'DSC'
     },
-    defaultFilterTemplate: '<input type="text" class="form-control" ng-model="cols.filterModel">',
-    defaultFilterName: 'myTableDefaultFilter',
+    defaultFilterName: 'input',
     paginationConfig: {
         defaultSize: 10,
         available: false

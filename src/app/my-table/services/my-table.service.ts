@@ -58,7 +58,9 @@ export class MyTableService {
     sortingInitializations(myTableColumns: Array<any>, sortOrderConfig: any): any {
       let sortOrder = {}, currentSortOrder = {};
 
-      /* Set default sorting behavior of columns to TRUE unless specified FALSE explicitly */
+      /* 
+          Set default sorting behavior of columns to TRUE unless specified FALSE explicitly 
+      */
       myTableColumns.forEach(function (el, id) {
           if (el.enableSorting === undefined || el.enableSorting === true || el.enableSorting === null || el.enableSorting === '') {
               el.enableSorting = true;
@@ -79,7 +81,8 @@ export class MyTableService {
       this.unsortedList = this.unsortedList || originalOrderedList;
 
       let tableData: Array<any> = [];
-      /*  If current sort order is NONE, do ASCENDING sort;
+      /*  
+          If current sort order is NONE, do ASCENDING sort;
           If current sort order is ASCENDING, do DESCENDING sort;
           If current sort order is DESCENDING, bring table to ORIGINAL state
       */
@@ -105,14 +108,6 @@ export class MyTableService {
           currentSortOrder: currentSortOrder,
           sortOrder: sortOrder
       };
-    };
-
-    resetFilterValues(myTableColumns: Array<any>) {
-      myTableColumns.forEach(function(elem, key){
-          elem.filterModel = '';
-      });
-
-      return myTableColumns;
     };
 
     sortAscending(list: Array<any>, fieldName: string): Array<any> {

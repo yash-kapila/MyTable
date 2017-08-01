@@ -12,8 +12,7 @@ import { MyTableDefaultPipe } from '../pipes/my-table-default-pipe.pipe';
 	inputs: [
 		'tableData',
 		'columnsConfig',
-		'pagination',
-		'appScope'
+		'pagination'
 	]
 })
 export class MyTableComponent implements OnInit {
@@ -25,7 +24,6 @@ export class MyTableComponent implements OnInit {
 	filteredRecords: Array<any>;
 	myTableColumns: Array<any>;
 	pagination: any;
-	appScope: any;
 	sortOrder: any;
 	currentSortOrder: any;
 
@@ -71,6 +69,16 @@ export class MyTableComponent implements OnInit {
 		this.currentSortOrder = sortingInitializations.currentSortOrder;
 	};
 
+    filterMyTable(filter: any) {
+        this.filteredRecords = this.myTableDefaultPipe.transform(this.tableData, filter.columnName, filter.value) || [];
+        if (this.pagination.available) {
+            this.paginationConfig = this.myTableService.paginationInitializations(this.pagination, myTableConfig.paginationConfig, this.filteredRecords);
+            this.shownRecords = this.filteredRecords.slice(0, this.paginationConfig.size);
+        } else {
+            this.shownRecords = this.filteredRecords.slice(0);
+        }
+    };
+
     sortColumn(config: any): boolean {
         this.originalOrderedList = this.originalOrderedList || this.tableData;
         if (config.enableSorting) {
@@ -80,19 +88,8 @@ export class MyTableComponent implements OnInit {
             this.sortOrder = sortedColumns.sortOrder;
             this.currentSortOrder = sortedColumns.currentSortOrder;
             this.paginationInitializations();
-            this.myTableColumns = this.myTableService.resetFilterValues(this.myTableColumns);
         } else {
             return;
-        }
-    };
-
-    filterMyTable(filter: any) {
-        this.filteredRecords = this.myTableDefaultPipe.transform(this.tableData, filter.columnName, filter.value) || [];
-        if (this.pagination.available) {
-            this.paginationConfig = this.myTableService.paginationInitializations(this.pagination, myTableConfig.paginationConfig, this.filteredRecords);
-            this.shownRecords = this.filteredRecords.slice(0, this.paginationConfig.size);
-        } else {
-            this.shownRecords = this.filteredRecords.slice(0);
         }
     };
 
