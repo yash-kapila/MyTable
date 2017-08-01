@@ -60,7 +60,7 @@ export class MyTableComponent implements OnInit {
 	};
 
 	filteringInitializations(): void {
-		this.myTableColumns = this.myTableService.filteringInitializations(this.myTableColumns, myTableConfig.defaultFilterName);
+		this.myTableColumns = this.myTableService.filteringInitializations(this.myTableColumns, myTableConfig.defaultFilterType);
 	};
 
 	sortingInitializations(): void {
@@ -69,8 +69,8 @@ export class MyTableComponent implements OnInit {
 		this.currentSortOrder = sortingInitializations.currentSortOrder;
 	};
 
-    filterMyTable(filter: any) {
-        this.filteredRecords = this.myTableDefaultPipe.transform(this.tableData, filter.columnName, filter.value) || [];
+    filterMyTable(options: any) {
+        this.filteredRecords = this.myTableDefaultPipe.transform(this.tableData, options.column.name, options.value, options.column.filter.customPipe) || [];
         if (this.pagination.available) {
             this.paginationConfig = this.myTableService.paginationInitializations(this.pagination, myTableConfig.paginationConfig, this.filteredRecords);
             this.shownRecords = this.filteredRecords.slice(0, this.paginationConfig.size);

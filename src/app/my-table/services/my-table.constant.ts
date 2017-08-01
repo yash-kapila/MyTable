@@ -8,7 +8,7 @@ export const myTableConfig = {
         '1': 'ASC',
         '2': 'DSC'
     },
-    defaultFilterName: 'input',
+    defaultFilterType: 'input',
     paginationConfig: {
         defaultSize: 10,
         available: false

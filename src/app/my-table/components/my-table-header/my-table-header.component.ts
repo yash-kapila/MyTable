@@ -13,6 +13,8 @@ import { myTableConfig } from '../../services/my-table.constant';
   styleUrls: ['./my-table-header.component.css']
 })
 export class MyTableHeaderComponent implements OnInit {
+	componentRef: ComponentRef<any>;
+	filterType: any;
 	@Input() column: any;
 	@Input() currentSortOrder: any;
 	@Output() sortColumn = new EventEmitter<any>();
@@ -23,8 +25,6 @@ export class MyTableHeaderComponent implements OnInit {
 		but in our case, we need to get the element as ViewContainerRef.
 	*/
 	@ViewChild("columnFilter", { read: ViewContainerRef }) container;
-	componentRef: ComponentRef<any>;
-	filterType: any;
 
 	/*
 		The ComponentFactoryResolver service exposes one important method, resolveComponentFactory.
@@ -40,8 +40,8 @@ export class MyTableHeaderComponent implements OnInit {
 	};
 
 	ngOnChanges(changes) {
-		const filterEnabled = changes.column.currentValue.enableFiltering;
-		const filter = changes.column.currentValue.filter;
+		const filterEnabled = changes.column.currentValue.filter.enable;
+		const filter = changes.column.currentValue.filter.type;
 		this.filterType = (filterEnabled && filter) ? myTableConfig.filterType[filter]: '';
 		this.createComponent();
 	};
@@ -51,18 +51,18 @@ export class MyTableHeaderComponent implements OnInit {
 			this.container.clear();
    			const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(this.filterType);
     		this.componentRef = this.container.createComponent(factory);
-			switch(this.column.filter) {
+			switch(this.column.filter.type) {
 				case 'input':
 					this.componentRef.instance.filterByInput.subscribe(event => this.filterMyTable.emit({
 						value: event, 
-						columnName: this.column.name
+						column: this.column
 					}));
 					break;
 				case 'select':
-					this.componentRef.instance.selectModel = this.column.selectModel;
+					this.componentRef.instance.selectModel = this.column.filter.selectModel;
 					this.componentRef.instance.filterByInput.subscribe(event => this.filterMyTable.emit({
 						value: event,
-						columnName: this.column.name
+						column: this.column
 					}));
 			};
 		}

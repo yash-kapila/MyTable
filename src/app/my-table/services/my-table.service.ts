@@ -44,11 +44,11 @@ export class MyTableService {
   		return config;
   	};
 
-    filteringInitializations(myTableColumns: Array<any>, defaultFilterName: string): Array<any> {
+    filteringInitializations(myTableColumns: Array<any>, defaultFilterType: string): Array<any> {
       myTableColumns.forEach(function (el, id) {
-          el.enableFiltering = (el.enableFiltering === true) ? true : false;
-          if (el.enableFiltering) {
-              el.filter = el.filter ? el.filter : defaultFilterName;
+          el.filter.enable = (el.filter.enable === true) ? true : false;
+          if (el.filter.enable) {
+              el.filter.type = el.filter.type ? el.filter.type : defaultFilterType;
           }
       });
 
