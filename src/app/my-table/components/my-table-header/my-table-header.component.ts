@@ -21,7 +21,7 @@ export class MyTableHeaderComponent implements OnInit {
 	@Output() filterMyTable = new EventEmitter<any>();
 
 	/*  
-		The default return from the ViewChild decorator is the component instance or the DOM element, 
+		The default return from the ViewChild decorator is the component instance or the DOM element(ElementRef), 
 		but in our case, we need to get the element as ViewContainerRef.
 	*/
 	@ViewChild("columnFilter", { read: ViewContainerRef }) container;
