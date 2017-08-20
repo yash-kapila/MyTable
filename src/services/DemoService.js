@@ -29,23 +29,27 @@ export default class DemoService {
     **  Example: { color: 'red' }
     **  bodyCellStyling: <Object> => Key/Value styles applicable to column cells.
     **  Example: { color: 'red' }
+    **  enableSorting: <Boolean> => Whether column is sortable.
     */
     const columnsConfig = [
       {
         name: 'name',
         heading: 'Name',
         headerCellStyling: nameHeaderStyles,
+        enableSorting: true,
       },
       {
         name: 'gender',
         heading: 'Gender',
         headerCellStyling: genderHeaderStyles,
+        enableSorting: true,
       },
       {
         name: 'company',
         heading: 'Company',
         headerCellStyling: companyHeaderStyles,
         bodyCellStyling: companyBodyStyles,
+        enableSorting: true,
       },
       {
         name: 'action',

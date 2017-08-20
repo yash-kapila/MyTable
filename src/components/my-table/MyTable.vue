@@ -4,7 +4,11 @@
 			<thead>
 				<tr>
 					<th v-for="col in columnsConfig" :style="col.headerCellStyling">
-						<span> {{ col.heading }} </span>
+						<my-table-header
+							:column="col"
+							:sortOrder="sortOrder"
+							@sortColumn="sortColumn">
+						</my-table-header>
 					</th>
 				</tr>
 			</thead>
@@ -25,7 +29,10 @@
 </template>
 
 <script>
-import MyTablePagination from './my-table-pagination/MyTablePagination';
+import MyTablePagination from './MyTablePagination';
+import MyTableHeader from './MyTableHeader';
+
+import MyTableService from './services/MyTableService';
 
 export default {
   /*
@@ -47,6 +54,7 @@ export default {
     return {
       pagination: {},
       visibleRecords: [],
+      sortOrder: {},
     };
   },
   /*
@@ -54,11 +62,8 @@ export default {
   ** @desc: lifecycle hook called when the component is created(not rendered though)
   */
   created() {
-    this.pagination = {
-      available: this.paginationConfig.available,
-      size: this.paginationConfig.size ? this.paginationConfig.size : 8,
-      currentPage: 1,
-    };
+    this.pagination = MyTableService.paginationInitialization(this.paginationConfig);
+    this.sortOrder = MyTableService.sortingInitialization(this.columnsConfig);
   },
   /*
   ** @prop: watch
@@ -96,6 +101,10 @@ export default {
       this.pagination.currentPage = event;
       this.visibleRecords = this.gridData.slice(start, end);
     },
+    sortColumn(event) {
+      console.log(event);
+      return event;
+    },
   },
   /*
   ** @prop: components
@@ -103,6 +112,7 @@ export default {
   */
   components: {
     'my-table-pagination': MyTablePagination,
+    'my-table-header': MyTableHeader,
   },
 };
 </script>
