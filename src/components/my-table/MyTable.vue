@@ -55,6 +55,7 @@ export default {
       pagination: {},
       visibleRecords: [],
       sortOrder: {},
+      orderedData: undefined,
     };
   },
   /*
@@ -72,11 +73,7 @@ export default {
   */
   watch: {
     gridData(newValue) {
-      if (this.pagination.available) {
-        this.visibleRecords = newValue.slice(0, this.pagination.size);
-      } else {
-        this.visibleRecords = newValue.slice(0);
-      }
+      this.visibleRecords = this.setupPagination(newValue);
     },
   },
   /*
@@ -99,11 +96,26 @@ export default {
       const start = (event - 1) * this.pagination.size;
       const end = event * this.pagination.size;
       this.pagination.currentPage = event;
-      this.visibleRecords = this.gridData.slice(start, end);
+      if (this.orderedData.length) {
+        this.visibleRecords = this.orderedData.slice(start, end);
+      } else {
+        this.visibleRecords = this.gridData.slice(start, end);
+      }
     },
     sortColumn(event) {
-      console.log(event);
-      return event;
+      // Sort gridData in a pure function and pass sorted grid to setupPagination()
+      const sortedColumnData = MyTableService.sortColumn(this.gridData, this.sortOrder, event);
+      this.orderedData = sortedColumnData.newGridData;
+      this.sortOrder = sortedColumnData.newSortOrder;
+
+      const gridData = this.orderedData.length ? this.orderedData : this.gridData;
+      this.visibleRecords = this.setupPagination(gridData);
+    },
+    setupPagination(gridData) {
+      if (this.pagination.available) {
+        return gridData.slice(0, this.pagination.size);
+      }
+      return gridData.slice(0);
     },
   },
   /*

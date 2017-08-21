@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style scoped>
-	.sort-icon-container {
+	.my-table-header-container {
 		cursor: pointer;
 	}
 </style>
