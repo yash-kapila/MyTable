@@ -26,7 +26,12 @@
     computed: {
       paginationBar() {
         const paginationBar = [];
-        const totalPages = this.totalRecords / this.paginationConfig.size;
+        let totalPages = 1;
+        if (this.totalRecords % this.paginationConfig.size === 0) {
+          totalPages = this.totalRecords / this.paginationConfig.size;
+        } else {
+          totalPages = Math.floor(this.totalRecords / this.paginationConfig.size) + 1;
+        }
         for (let i = 1; i <= totalPages; i += 1) {
           paginationBar.push(i);
         }

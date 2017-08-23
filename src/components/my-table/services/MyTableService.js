@@ -71,6 +71,8 @@ export default class MyTableService {
     if (filterType === 'input') {
       filteredList = gridData.filter((val) => {
         const cell = val[columnName].toString().toLowerCase();
+        console.log(cell);
+        console.log(cell.includes(filterValue.toLowerCase));
         return cell.includes(filterValue.toLowerCase());
       });
     } else if (filterType === 'select') {
