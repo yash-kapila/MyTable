@@ -59,4 +59,26 @@ export default class MyTableService {
     };
   }
 
+  static identifyFilter(defaultFilters, column) {
+    if (column.enableFiltering) {
+      return column.filterType ? defaultFilters[column.filterType.toLowerCase()] : '';
+    }
+    return '';
+  }
+
+  static filter(gridData, filterValue, columnName, filterType) {
+    let filteredList = [];
+    if (filterType === 'input') {
+      filteredList = gridData.filter((val) => {
+        const cell = val[columnName].toString().toLowerCase();
+        return cell.includes(filterValue.toLowerCase());
+      });
+    } else if (filterType === 'select') {
+      filteredList = gridData.filter(val => val[columnName].toString());
+    } else {
+      return [...gridData];
+    }
+    return filteredList;
+  }
+
 }

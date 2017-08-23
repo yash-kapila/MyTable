@@ -7,7 +7,8 @@
 						<my-table-header
 							:column="col"
 							:sortOrder="sortOrder"
-							@sortColumn="sortColumn">
+							@sortColumn="sortColumn"
+							@filterGrid="filterGrid">
 						</my-table-header>
 					</th>
 				</tr>
@@ -54,8 +55,9 @@ export default {
     return {
       pagination: {},
       visibleRecords: [],
+      orderedData: [],
       sortOrder: {},
-      orderedData: undefined,
+      filteredList: [],
     };
   },
   /*
@@ -74,6 +76,7 @@ export default {
   watch: {
     gridData(newValue) {
       this.visibleRecords = this.setupPagination(newValue);
+      this.filteredList = this.gridData.slice(0);
     },
   },
   /*
@@ -84,7 +87,7 @@ export default {
   */
   computed: {
     totalRecords() {
-      return this.gridData.length;
+      return this.filteredList.length;
     },
   },
   /*
@@ -110,12 +113,22 @@ export default {
 
       const gridData = this.orderedData.length ? this.orderedData : this.gridData;
       this.visibleRecords = this.setupPagination(gridData);
+      this.pagination.currentPage = 1;
     },
     setupPagination(gridData) {
       if (this.pagination.available) {
         return gridData.slice(0, this.pagination.size);
       }
       return gridData.slice(0);
+    },
+    filterGrid(event, columnName, filterType) {
+      if (this.orderedData.length) {
+        this.filteredList = MyTableService.filter(this.orderedData, event, columnName, filterType);
+      } else {
+        this.filteredList = MyTableService.filter(this.gridData, event, columnName, filterType);
+      }
+      this.visibleRecords = this.setupPagination(this.filteredList);
+      this.pagination.currentPage = 1;
     },
   },
   /*
@@ -131,5 +144,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.my-table-container > .table > thead > tr > th {
+	vertical-align: middle;
+}
 </style>

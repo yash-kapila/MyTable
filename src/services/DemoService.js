@@ -37,6 +37,8 @@ export default class DemoService {
         heading: 'Name',
         headerCellStyling: nameHeaderStyles,
         enableSorting: true,
+        enableFiltering: true,
+        filterType: 'input',
       },
       {
         name: 'gender',
