@@ -38,13 +38,22 @@ export default class DemoService {
         headerCellStyling: nameHeaderStyles,
         enableSorting: true,
         enableFiltering: true,
-        filterType: 'input',
+        filter: {
+          type: 'input',
+          value: '',
+        },
       },
       {
         name: 'gender',
         heading: 'Gender',
         headerCellStyling: genderHeaderStyles,
         enableSorting: true,
+        enableFiltering: true,
+        filter: {
+          type: 'select',
+          options: ['female', 'male'],
+          value: '',
+        },
       },
       {
         name: 'company',
@@ -52,6 +61,12 @@ export default class DemoService {
         headerCellStyling: companyHeaderStyles,
         bodyCellStyling: companyBodyStyles,
         enableSorting: true,
+        enableFiltering: false,
+        filter: {
+          type: 'radio',
+          options: ['Enersol', 'Sealoud'],
+          value: '',
+        },
       },
       {
         name: 'action',

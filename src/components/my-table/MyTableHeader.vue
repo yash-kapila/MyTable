@@ -17,13 +17,15 @@
 			</div>
 		</div>
 		<div class="column-filter" v-if="column.enableFiltering" @click.stop>
-			<div :is="filter" @filterGrid="filterGrid"></div>
+			<div :is="filter" :filterOptions="column.filter.options" @filterGrid="filterGrid"></div>
 		</div>
 	</div>
 </template>
 
 <script>
 import MyTableInputFilter from './filters/MyTableInputFilter';
+import MyTableSelectFilter from './filters/MyTableSelectFilter';
+import MyTableRadioFilter from './filters/MyTableRadioFilter';
 
 import MyTableService from './services/MyTableService';
 import MyTableConstant from './services/MyTableConstant';
@@ -42,11 +44,14 @@ export default {
       this.$emit('sortColumn', column);
     },
     filterGrid(event) {
-      this.$emit('filterGrid', event, this.column.name, this.column.filterType);
+      this.column.filter.value = event;
+      this.$emit('filterGrid');
     },
   },
   components: {
     'my-table-input-filter': MyTableInputFilter,
+    'my-table-select-filter': MyTableSelectFilter,
+    'my-table-radio-filter': MyTableRadioFilter,
   },
 };
 </script>

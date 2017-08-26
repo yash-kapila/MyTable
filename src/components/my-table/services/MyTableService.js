@@ -1,5 +1,16 @@
 import MyTableConstant from './MyTableConstant';
 
+const inputFilter = (filteredList, col) => filteredList.filter((val) => {
+  const cell = val[col.name].toString().toLowerCase();
+  return cell.includes(col.filter.value.toLowerCase());
+});
+
+const selectFilter = (filteredList, col) => filteredList.filter((val) => {
+  const pattern = new RegExp(`^${col.filter.value.toLowerCase()}$`);
+  const cell = val[col.name].toString().toLowerCase();
+  return cell.match(pattern);
+});
+
 export default class MyTableService {
   static paginationInitialization(paginationConfig) {
     return {
@@ -61,24 +72,34 @@ export default class MyTableService {
 
   static identifyFilter(defaultFilters, column) {
     if (column.enableFiltering) {
-      return column.filterType ? defaultFilters[column.filterType.toLowerCase()] : '';
+      return column.filter.type ? defaultFilters[column.filter.type.toLowerCase()] : '';
     }
     return '';
   }
 
-  static filter(gridData, filterValue, columnName, filterType) {
-    let filteredList = [];
-    if (filterType === 'input') {
-      filteredList = gridData.filter((val) => {
-        const cell = val[columnName].toString().toLowerCase();
-        console.log(cell);
-        console.log(cell.includes(filterValue.toLowerCase));
-        return cell.includes(filterValue.toLowerCase());
-      });
-    } else if (filterType === 'select') {
-      filteredList = gridData.filter(val => val[columnName].toString());
-    } else {
-      return [...gridData];
+  static filter(gridData, columnsConfig) {
+    let filteredList = [...gridData];
+    for (let i = 0; i < columnsConfig.length; i += 1) {
+      const col = columnsConfig[i];
+      if (col.enableFiltering) {
+        switch (col.filter.type) {
+          case MyTableConstant.filterType.InputFilter:
+            filteredList = inputFilter(filteredList, col);
+            break;
+          case MyTableConstant.filterType.SelectFilter:
+            if (col.filter.value !== '') {
+              filteredList = selectFilter(filteredList, col);
+            }
+            break;
+          case MyTableConstant.filterType.RadioFilter:
+            if (col.filter.value !== '') {
+              filteredList = selectFilter(filteredList, col);
+            }
+            break;
+          default:
+            return filteredList;
+        }
+      }
     }
     return filteredList;
   }
