@@ -6,6 +6,12 @@ import MyTableConstant from './services/MyTableConstant';
 export default {
   name: 'MyTableBody',
   data() {
+    /*
+    **  'template': stores the Vue.compile rendered template
+    **  'defaultCell': stores an empty string which is needed if
+    **  custom template needs an empty child. Render Function doesn't accept
+    **  a parent without a child in Vue.
+    */
     return {
       template: null,
       defaultCell: '',

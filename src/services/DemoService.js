@@ -71,6 +71,10 @@ export default class DemoService {
       {
         name: 'action',
         heading: 'Action',
+        /*
+        **  'defaultCell' property needed as VueJS render function doesn't
+        **  accept a parent without a child.
+        */
         template: `<button class="btn btn-primary" @click="testClick(row, col)">
                     <i class="glyphicon glyphicon-minus"> {{ defaultCell }} </i> 
                   </button>`,
