@@ -71,6 +71,9 @@ export default class DemoService {
       {
         name: 'action',
         heading: 'Action',
+        template: `<button class="btn btn-primary">
+                    <i class="glyphicon glyphicon-minus"> {{ defaultCell }} </i> 
+                  </button>`,
       },
     ];
 

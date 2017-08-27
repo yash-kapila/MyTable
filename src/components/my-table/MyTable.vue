@@ -16,7 +16,10 @@
 			<tbody>
 				<tr v-for="row in visibleRecords">
 					<td v-for="col in columnsConfig" :style="col.bodyCellStyling">
-						<span> {{ row[col.name] }} </span>
+						<my-table-body
+							:row="row"
+							:col="col">
+						</my-table-body>
 					</td>
 				</tr>
 			</tbody>
@@ -32,6 +35,7 @@
 <script>
 import MyTablePagination from './MyTablePagination';
 import MyTableHeader from './MyTableHeader';
+import MyTableBody from './MyTableBody';
 
 import MyTableService from './services/MyTableService';
 
@@ -151,6 +155,7 @@ export default {
   components: {
     'my-table-pagination': MyTablePagination,
     'my-table-header': MyTableHeader,
+    'my-table-body': MyTableBody,
   },
 };
 </script>

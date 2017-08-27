@@ -14,4 +14,5 @@ export default {
     select: 'my-table-select-filter',
     radio: 'my-table-radio-filter',
   },
+  defaultBodyCellTemplate: '<span> {{ row[col.name] }} </span>',
 };
