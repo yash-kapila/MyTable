@@ -71,9 +71,10 @@ export default class DemoService {
       {
         name: 'action',
         heading: 'Action',
-        template: `<button class="btn btn-primary">
+        template: `<button class="btn btn-primary" @click="testClick(row, col)">
                     <i class="glyphicon glyphicon-minus"> {{ defaultCell }} </i> 
                   </button>`,
+        bindings: {},
       },
     ];
 
