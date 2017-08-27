@@ -29,7 +29,9 @@ export default {
   },
   created() {
     this.gridConfiguration = DemoService.gridConfiguration();
-
+    this.gridConfiguration.columnsConfig[3].bindings = {
+      testClick: this.testClick,
+    };
     DemoService.getData()
       .then((data) => {
         this.gridData = data;
@@ -37,6 +39,15 @@ export default {
       .catch((error) => {
         this.error = error;
       });
+  },
+  methods: {
+    /*
+    ** Properties 'row', 'col' exposed from MyTable to be used outside it.
+    */
+    testClick(row) {
+      const filteredList = this.gridData.filter(el => el.name !== row.name);
+      this.gridData = filteredList;
+    },
   },
   components: {
     'my-table': MyTable,
